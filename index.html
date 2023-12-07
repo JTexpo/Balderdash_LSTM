@@ -1,0 +1,166 @@
+<html>
+
+<head>
+    <!-- PyScript: https://github.com/pyscript/pyscript/releases -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.05.1/pyscript.css" />
+    <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script>
+    <!-- Bootstrap: https://getbootstrap.com -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- local Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <py-config>
+        packages = []
+        [[fetch]]
+        files = ["./main.py",
+        "./assets/data/balderdash_words.csv"]
+    </py-config>
+</head>
+
+<body>
+    <!-- Healthy Spacing -->
+    <br>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col logo-flex-col">
+                    <img onclick="window.location.href = 'https://jtexpo.github.io'" src="../assets/images/jtexpo.png"
+                        alt="" class="logo-img">
+                    <a href="https://jtexpo.github.io" class="display-3 logo-main-text">JTexpo</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="display-4 text-center">
+                        <a href="https://www.youtube.com/@JTexpo" target="_blank" class="logo-sub-text">
+                            Content To Tr<span style="color: #F3AF56;">AI</span>n Your Brain
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Healthy Spacing -->
+    <br>
+    <br>
+    <!-- Matchbox One D Chess -->
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <br>
+                    <div class="h3 score-text" style="text-align: center;">AI Score</div>
+                    <div class="h1 game-support-text" style="text-align: center;" id="ai-score">0</div>
+                </div>
+                <div class="col-sm-8 game-board">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="h2 game-support-text" style="position:absolute;bottom:0;right:0;">is...</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="display-4 game-main-text" style="text-align: center;" id="word">Balderdash</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="h4 info-body">Definition:</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="h4 info-body" id="definition">words or signs having no intelligible meaning.</div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <button class="btn btn-success btn-block game-btn" py-click="word_guess(True)">
+                                Real
+                            </button>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="h2 game-support-text" style="text-align: center; padding-top: 0.5em;">or</div>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <button class="btn btn-danger btn-block game-btn" py-click="word_guess(False)">
+                                Fake
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="h4 info-body" id="response">
+                                <span class="right">HINT</span> : Balderdash is a real word!
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-sm-2">
+                    <br>
+                    <div class="h3 score-text" style="text-align: center;">Your Score</div>
+                    <div class="h1 game-support-text" style="text-align: center;" id="player-score">0</div>
+                </div>
+            </div>
+
+            <!-- Healthy Spacing -->
+            <br>
+            <br>
+            <br>
+            <!-- Explination -->
+            <!-- How to use this app -->
+            <div class="row">
+                <div class="h2 info-header">How to use this app</div>
+            </div>
+            <div class="row">
+                <div class="h4 info-body">
+                    Upon refreshing or loading the website, you will be prompted with the word 'Balderdash.' 
+                    Your role is to guess if the word is a real word, given the definition as help. <br><br>
+                    Click on either the 'Real' or 'Fake' buttons to submit your guess. 
+                    Test your word knowledge and have fun! <br><br>
+                    Depending on whether you're right or wrong, either the AI's or your score will go up. 
+                    Challenge yourself and see how high you can score! <br><br>
+                </div>
+            </div>
+            <!-- What is a RNN -->
+            <div class="row">
+                <div class="h2 info-header">What is LSTM?</div>
+            </div>
+            <div class="row">
+                <div class="h4 info-body">
+                    LSTM, also known as Long Short Term Memory, is a type of Recurrent Neural Network (RNN) where the AI leverages previous guesses to influence its future predictions. 
+                    In this example, the AI uses the preceding letters of a word to make an educated guess about the next letters. <br><br>
+                    The key distinction between LSTM and a regular RNN lies in how LSTM updates its memory after each iteration. 
+                    This process causes the AI to assign less importance to older data compared to newer data. <br><br>
+                    However, it's important to note that AI models, including LSTM, are not perfect. 
+                    There's a chance for hallucinations, where the model predicts incorrectly.
+                    These incorrect predictions can closely resemble the intended direction, underscoring the importance of reviewing and cross-checking information provided by an AI. <br><br>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Healthy Spacing -->
+    <br>
+    <br>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="h4 footer-rights">&copy; 2023 Justin Tyler Esposito. All rights reserved.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <py-script src="./main.py"></py-script>
+</body>
+
+</html>
